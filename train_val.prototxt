@@ -35,6 +35,7 @@ layer {
     backend: LMDB
   }
 }
+
 layer {
   name: "conv_conv2d"
   type: "Convolution"
@@ -61,6 +62,9 @@ layer {
   type: "BatchNorm"
   bottom: "conv_conv2d"
   top: "conv_conv2d_bn"
+  include {
+    phase: TRAIN
+  }
   param {
     lr_mult: 0.0
   }
@@ -77,6 +81,31 @@ layer {
      
   }
 }
+layer {
+  name: "conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "conv_conv2d"
+  top: "conv_conv2d_bn"
+  include {
+    phase: TEST
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  batch_norm_param {
+    use_global_stats: true
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+
 layer {
   name: "conv_batchscale"
   type: "Scale"
@@ -135,8 +164,36 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+    
+     
+  }
+}
+layer {
+  name: "conv_1_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "conv_1_1_conv2d"
+  top: "conv_1_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
     
@@ -199,6 +256,9 @@ layer {
   param {
     lr_mult: 0.0
   }
+   include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
     moving_average_fraction: 0.9997
@@ -206,6 +266,33 @@ layer {
     
      
   }
+ 
+}
+layer {
+  name: "conv_2_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "conv_2_2_conv2d"
+  top: "conv_2_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+   include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
+    moving_average_fraction: 0.9997
+    eps: 0.001
+    
+     
+  }
+ 
 }
 layer {
   name: "conv_2_2_batchscale"
@@ -277,8 +364,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "conv_3_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "conv_3_3_conv2d"
+  top: "conv_3_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -341,8 +455,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "conv_4_4_batchnorm"
+  type: "BatchNorm"
+  bottom: "conv_4_4_conv2d"
+  top: "conv_4_4_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -417,8 +558,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_conv_conv2d"
+  top: "mixed_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -481,8 +649,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_conv_conv2d"
+  top: "mixed_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -545,8 +740,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_conv_1_conv2d"
+  top: "mixed_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -609,8 +831,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_1_conv_conv2d"
+  top: "mixed_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -673,8 +922,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_1_conv_1_conv2d"
+  top: "mixed_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -737,8 +1013,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_1_conv_2_conv2d"
+  top: "mixed_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase:TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -813,8 +1116,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_tower_2_conv_conv2d"
+  top: "mixed_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -889,8 +1219,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_conv_conv2d"
+  top: "mixed_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase:TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -953,8 +1310,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_conv_conv2d"
+  top: "mixed_1_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1017,8 +1401,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_conv_1_conv2d"
+  top: "mixed_1_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1081,8 +1492,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_1_conv_conv2d"
+  top: "mixed_1_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1145,8 +1583,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_1_conv_1_conv2d"
+  top: "mixed_1_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1209,8 +1674,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_1_conv_2_conv2d"
+  top: "mixed_1_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1285,8 +1777,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_1_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_1_tower_2_conv_conv2d"
+  top: "mixed_1_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1361,8 +1880,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_conv_conv2d"
+  top: "mixed_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1425,8 +1971,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_conv_conv2d"
+  top: "mixed_2_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1489,8 +2062,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_conv_1_conv2d"
+  top: "mixed_2_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1553,8 +2153,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_1_conv_conv2d"
+  top: "mixed_2_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1617,8 +2244,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_1_conv_1_conv2d"
+  top: "mixed_2_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1681,8 +2335,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_1_conv_2_conv2d"
+  top: "mixed_2_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1757,8 +2438,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_2_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_2_tower_2_conv_conv2d"
+  top: "mixed_2_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1833,8 +2541,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_3_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_3_conv_conv2d"
+  top: "mixed_3_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1897,8 +2632,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_3_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_3_tower_conv_conv2d"
+  top: "mixed_3_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -1961,8 +2723,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_3_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_3_tower_conv_1_conv2d"
+  top: "mixed_3_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2025,8 +2814,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_3_tower_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_3_tower_conv_2_conv2d"
+  top: "mixed_3_tower_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2112,8 +2928,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_conv_conv2d"
+  top: "mixed_4_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2176,8 +3019,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_conv_conv2d"
+  top: "mixed_4_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2242,8 +3112,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_conv_1_conv2d"
+  top: "mixed_4_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2308,8 +3205,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_conv_2_conv2d"
+  top: "mixed_4_tower_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2372,8 +3296,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+   include{
+phase:TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_1_conv_conv2d"
+  top: "mixed_4_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include{
+phase:TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2438,8 +3389,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include{
+  phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_1_conv_1_conv2d"
+  top: "mixed_4_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include{
+  phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2504,8 +3482,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_1_conv_2_conv2d"
+  top: "mixed_4_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2570,8 +3575,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_1_conv_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_1_conv_3_conv2d"
+  top: "mixed_4_tower_1_conv_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2636,8 +3668,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_4_tower_1_conv_4_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_1_conv_4_conv2d"
+  top: "mixed_4_tower_1_conv_4_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2712,12 +3771,39 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
     moving_average_fraction: 0.9997
     eps: 0.001
     
      
+  }
+}
+layer {
+  name: "mixed_4_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_4_tower_2_conv_conv2d"
+  top: "mixed_4_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
+    moving_average_fraction: 0.9997
+    eps: 0.001
+        
   }
 }
 layer {
@@ -2789,8 +3875,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_conv_conv2d"
+  top: "mixed_5_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2853,8 +3966,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_conv_conv2d"
+  top: "mixed_5_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2919,8 +4059,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_conv_1_conv2d"
+  top: "mixed_5_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -2985,8 +4152,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_conv_2_conv2d"
+  top: "mixed_5_tower_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3049,8 +4243,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_1_conv_conv2d"
+  top: "mixed_5_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3115,8 +4336,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_1_conv_1_conv2d"
+  top: "mixed_5_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3181,8 +4429,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_1_conv_2_conv2d"
+  top: "mixed_5_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3247,8 +4522,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_1_conv_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_1_conv_3_conv2d"
+  top: "mixed_5_tower_1_conv_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3313,8 +4615,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_1_conv_4_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_1_conv_4_conv2d"
+  top: "mixed_5_tower_1_conv_4_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3389,8 +4718,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_5_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_5_tower_2_conv_conv2d"
+  top: "mixed_5_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3464,9 +4820,34 @@ layer {
   }
   param {
     lr_mult: 0.0
+  }include {
+    phase: TRAIN
   }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_conv_conv2d"
+  top: "mixed_6_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3529,8 +4910,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_conv_conv2d"
+  top: "mixed_6_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3595,8 +5003,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_conv_1_conv2d"
+  top: "mixed_6_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3661,8 +5096,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_conv_2_conv2d"
+  top: "mixed_6_tower_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3725,8 +5187,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_1_conv_conv2d"
+  top: "mixed_6_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3791,8 +5280,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_1_conv_1_conv2d"
+  top: "mixed_6_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3857,8 +5373,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_1_conv_2_conv2d"
+  top: "mixed_6_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3923,8 +5466,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_1_conv_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_1_conv_3_conv2d"
+  top: "mixed_6_tower_1_conv_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -3989,8 +5559,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_1_conv_4_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_1_conv_4_conv2d"
+  top: "mixed_6_tower_1_conv_4_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4065,8 +5662,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_6_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_6_tower_2_conv_conv2d"
+  top: "mixed_6_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4141,8 +5765,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_conv_conv2d"
+  top: "mixed_7_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4205,8 +5856,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_conv_conv2d"
+  top: "mixed_7_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4271,8 +5949,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_conv_1_conv2d"
+  top: "mixed_7_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4337,8 +6042,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_conv_2_conv2d"
+  top: "mixed_7_tower_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4401,8 +6133,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_1_conv_conv2d"
+  top: "mixed_7_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4467,8 +6226,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_1_conv_1_conv2d"
+  top: "mixed_7_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4532,9 +6318,36 @@ layer {
   }
   param {
     lr_mult: 0.0
+  }include {
+    phase: TRAIN
   }
+
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_1_conv_2_conv2d"
+  top: "mixed_7_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }include {
+    phase: TEST
+  }
+
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4598,9 +6411,36 @@ layer {
   }
   param {
     lr_mult: 0.0
+  }include {
+    phase: TRAIN
   }
+
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_1_conv_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_1_conv_3_conv2d"
+  top: "mixed_7_tower_1_conv_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }include {
+    phase: TEST
+  }
+
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4664,9 +6504,36 @@ layer {
   }
   param {
     lr_mult: 0.0
+  }include {
+    phase: TRAIN
   }
+
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_1_conv_4_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_1_conv_4_conv2d"
+  top: "mixed_7_tower_1_conv_4_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }include {
+    phase: TEST
+  }
+
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4740,9 +6607,36 @@ layer {
   }
   param {
     lr_mult: 0.0
+  }include {
+    phase: TRAIN
   }
+
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_7_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_7_tower_2_conv_conv2d"
+  top: "mixed_7_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }include {
+    phase: TEST
+  }
+
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4817,8 +6711,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_8_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_conv_conv2d"
+  top: "mixed_8_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4881,8 +6802,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_8_tower_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_conv_1_conv2d"
+  top: "mixed_8_tower_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -4945,8 +6893,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_8_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_1_conv_conv2d"
+  top: "mixed_8_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5011,8 +6986,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_8_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_1_conv_1_conv2d"
+  top: "mixed_8_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5077,8 +7079,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+    
+  }
+}
+layer {
+  name: "mixed_8_tower_1_conv_2_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_1_conv_2_conv2d"
+  top: "mixed_8_tower_1_conv_2_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
     
@@ -5141,8 +7170,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_8_tower_1_conv_3_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_8_tower_1_conv_3_conv2d"
+  top: "mixed_8_tower_1_conv_3_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5229,8 +7285,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_conv_conv2d"
+  top: "mixed_9_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5293,8 +7376,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_conv_conv2d"
+  top: "mixed_9_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5359,8 +7469,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_mixed_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_mixed_conv_conv2d"
+  top: "mixed_9_tower_mixed_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5425,8 +7562,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_mixed_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_mixed_conv_1_conv2d"
+  top: "mixed_9_tower_mixed_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5489,8 +7653,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_1_conv_conv2d"
+  top: "mixed_9_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5553,8 +7744,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_1_conv_1_conv2d"
+  top: "mixed_9_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5619,8 +7837,36 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+
+layer {
+  name: "mixed_9_tower_1_mixed_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_1_mixed_conv_conv2d"
+  top: "mixed_9_tower_1_mixed_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5685,8 +7931,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+    
+  }
+}
+layer {
+  name: "mixed_9_tower_1_mixed_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_1_mixed_conv_1_conv2d"
+  top: "mixed_9_tower_1_mixed_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
     
@@ -5761,8 +8034,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_9_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_9_tower_2_conv_conv2d"
+  top: "mixed_9_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5840,8 +8140,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_conv_conv2d"
+  top: "mixed_10_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5904,8 +8231,36 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+
+layer {
+  name: "mixed_10_tower_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_conv_conv2d"
+  top: "mixed_10_tower_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -5970,8 +8325,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_mixed_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_mixed_conv_conv2d"
+  top: "mixed_10_tower_mixed_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6036,8 +8418,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_mixed_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_mixed_conv_1_conv2d"
+  top: "mixed_10_tower_mixed_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6100,8 +8509,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_1_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_1_conv_conv2d"
+  top: "mixed_10_tower_1_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6164,8 +8600,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_1_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_1_conv_1_conv2d"
+  top: "mixed_10_tower_1_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6230,8 +8693,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_1_mixed_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_1_mixed_conv_conv2d"
+  top: "mixed_10_tower_1_mixed_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6296,8 +8786,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_1_mixed_conv_1_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_1_mixed_conv_1_conv2d"
+  top: "mixed_10_tower_1_mixed_conv_1_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
@@ -6379,8 +8896,35 @@ layer {
   param {
     lr_mult: 0.0
   }
+  include {
+    phase: TRAIN
+  }
   batch_norm_param {
     use_global_stats: false
+    moving_average_fraction: 0.9997
+    eps: 0.001
+     
+  }
+}
+layer {
+  name: "mixed_10_tower_2_conv_batchnorm"
+  type: "BatchNorm"
+  bottom: "mixed_10_tower_2_conv_conv2d"
+  top: "mixed_10_tower_2_conv_conv2d_bn"
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  param {
+    lr_mult: 0.0
+  }
+  include {
+    phase: TEST
+  }
+  batch_norm_param {
+    use_global_stats: true
     moving_average_fraction: 0.9997
     eps: 0.001
      
