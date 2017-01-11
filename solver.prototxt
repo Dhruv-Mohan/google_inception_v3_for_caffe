@@ -1,9 +1,9 @@
-net: "models/googlenet_v3/train_val.prototxt"
+net: "/home/dhruv/caffe-master/build/tools/train_val.prototxt"
 test_iter: 10000
-test_interval: 6500
+test_interval: 6000
 test_initialization: false
 display: 60
-base_lr: 0.072
+base_lr: 0.092
 lr_policy: "step"
 type: "RMSProp"
 rms_decay: 0.9
@@ -11,9 +11,9 @@ delta: 0.9
 gamma: 0.94
 stepsize: 6663
 max_iter: 666221
-weight_decay: 0.0004
+weight_decay: 0.0001
 clip_gradients: 80
-snapshot: 52000
-snapshot_prefix: "googlenet_v3"
+snapshot:10000
+snapshot_prefix: "AVC_BLVC_DATA10"
 solver_mode: GPU
 device_id: 0
