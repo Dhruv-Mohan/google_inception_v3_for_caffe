@@ -1,13 +1,13 @@
 # Google Inception V3 for BLVC/Caffe
 
 ## Introduction
-I've edited the train_val.prototxt and deploy.prototxt to make the network compatible with BLCV/caffe. I've tested it with both the master and windows branches of BLVC/caffe.
+I've edited the train_val.prototxt and deploy.prototxt to make the network compatible with BVLC/caffe. I've tested it with both the master and windows branches of BVLC/caffe.
 
-The original implementation is incompatible with BLCV/caffe because of the difference in implementation of the batch normalization layer. I've added BLCV/caffe compliant batchnorm and scale layers and turned off global_stats while in the TEST phase and turned them on in the TRAIN phase
+The original implementation is incompatible with BLCV/caffe because of the difference in implementation of the batch normalization layer in Nvidia/caffe and BVLC/caffe. I've added BVLC/caffe compliant batchnorm and scale layers and turned off global_stats while in the TEST phase and turned them on in the TRAIN phase
 
 ## Training on custom set
 
-I have trained this model on custom subset of 12 categories for 24000 iterations using [BLVC/caffe](https://github.com/BVLC/caffe) :  
+I have trained this model on custom subset of 12 categories for 24000 iterations using [BVLC/caffe](https://github.com/BVLC/caffe) :  
 
 ```
 I0111 19:03:30.063627  2913 solver.cpp:337] Iteration 24000, Testing net (#0)
